@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araba Fiyat Tahmini</title>
+</head>
+
+<body>
+
+    <div class="hero-image">
+        <div class="hero-text">
+
+            <h1 style="font-size:50px">Araba Fiyat Tahmini Uygulaması</h1>
+
+            <h2 style="font-family:Papyrus">Araba Özelliklerine göre fiyat tahmini yapabilirsiniz</h2>
+            <h3> Made by Murat Özcan </h3>
+        </div>
+    </div>
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/carback.jpg');
+            height: 50%;
+            background-position: bottom;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+    </style>
+
+
+    <div style="color: black ">
+        <form action="{{ url_for('predict')}}" method="post">
+
+            <h2>------- Arabanın Özelliklerini Seçiniz --------</h2>
+            <h3>Arabanın Markasını Seçiniz</h3><select name="Marka" id="fuel" required="required">
+                <option value="Fiat">Fiat</option>
+                <option value="Ford">Ford</option>
+                <option value="Honda">Honda</option>
+                <option value="Hyundai">Hyundai</option>
+                <option value="Opel">Opel</option>
+                <option value="Toyota">Toyota</option>
+
+
+            </select>
+            <h3>Arabanın Serisini Seçiniz</h3><select name="Seri" id="fuel" required="required">
+                <option value="Accent">Accent</option>
+                <option value="Astra">Astra</option>
+                <option value="Civic">Civic</option>
+                <option value="Corolla">Corolla</option>
+                <option value="Corsa">Corsa</option>
+                <option value="Fiesta">Fiesta</option>
+                <option value="Focus">Focus</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Linea">Linea</option>
+                <option value="Palio">Palio</option>
+                <option value="i20">i20</option>
+
+
+
+            </select>
+            <h3>Arabanın Modelini Seçiniz</h3><select name="Model" id="fuel" required="required">
+                <option value="1.2 EL">1.2 EL</option>
+                <option value="1.2 MPI Style">1.2 MPI Style</option>
+                <option value="1.3 Admire">1.3 Admire</option>
+                <option value="1.3 CDTI Cosmo">1.3 CDTI Cosmo</option>
+                <option value="1.3 CDTI Enjoy">1.3 CDTI Enjoy</option>
+                <option value="1.3 Multijet Active Plus">1.3 Multijet Active Plus</option>
+                <option value="1.4 1.4i">1.4 1.4i</option>
+                <option value="1.4 CRDi Jump">1.4 CRDi Jump</option>
+                <option value="1.4 D-4D Comfort">1.4 D-4D Comfort</option>
+                <option value="1.4 D-4D Elegant">1.4 D-4D Elegant</option>
+                <option value="1.4 EL">1.4 EL</option>
+                <option value="1.4 Enjoy">1.4 Enjoy</option>
+                <option value="1.4 Fire Pop">1.4 Fire Pop</option>
+                <option value="1.4 Fun">1.4 Fun</option>
+                <option value="1.4 TDCi Comfort">1.4 TDCi Comfort</option>
+                <option value="1.5 GLS">1.5 GLS</option>
+                <option value="1.5 TDCi Trend">1.5 TDCi Trend</option>
+                <option value="1.5 TDCi Trend X">1.5 TDCi Trend X</option>
+                <option value="1.6 CD">1.6 CD</option>
+                <option value="1.6 LS">1.6 LS</option>
+                <option value="1.6 TDCi Trend X">1.6 TDCi Trend X</option>
+
+
+            </select>
+            <h3>Arabanın Yılını Giriniz</h3>
+            <input id="first" name="Yıl" type="number ">
+            <h3>Arabanın Yakıtıni Seçiniz</h3><select name="Yakıt" id="fuel" required="required">
+                <option value="Benzin">Benzin</option>
+                <option value="Dizel">Dizel</option>
+                <option value="LPG & Benzin">LPG - Benzin</option>
+
+            </select>
+            <h3>Arabanın Vites Türünü Seçiniz</h3><select name="Vites" id="fuel" required="required">
+                <option value="Düz">Düz</option>
+                <option value="Otomatik">Otomatik</option>
+                <option value="Yarı Otomatik">Yarı Otomatik</option>
+  
+
+            </select>
+            <h3>Arabanın Kilometresini Giriniz</h3>
+            <input id="first" name="Kilometre" type="number ">
+            <br><br><button id="sub" type="submit ">Calculate</button>
+            <br>
+
+        </form>
+        <br>
+        <h2>{{ prediction_text }}
+            <h2>
+
+
+
+                <style>
+                    body {
+                        background-color: azure;
+                        text-align: center;
+                        padding: 0px;
+                        font-family: cursive;
+                    }
+
+                    #research {
+                        font-size: 18px;
+                        width: 200px;
+                        height: 23px;
+                        top: 23px;
+                    }
+
+                    #box {
+                        border-radius: 60px;
+                        border-color: 45px;
+                        border-style: solid;
+                        text-align: center;
+                        background-color: rgb(1, 54, 48);
+                        font-size: medium;
+                        position: absolute;
+                        width: 700px;
+                        bottom: 9%;
+                        height: 850px;
+                        right: 30%;
+                        padding: 0px;
+                        margin: 0px;
+                        font-size: 14px;
+                    }
+
+                    #fuel {
+                        width: 130px;
+                        height: 43px;
+                        text-align: center;
+                        border-radius: 18px;
+                        font-size: 17px;
+                    }
+
+                    #fuel:hover {
+                        background-color: #FFD700;
+                    }
+
+                    #research {
+                        width: 150px;
+                        height: 43px;
+                        text-align: center;
+                        border-radius: 14px;
+                        font-size: 18px;
+                    }
+
+                    #research:hover {
+                        background-color: #FFD700;
+                    }
+
+                    #resea {
+                        width: 99px;
+                        height: 43px;
+                        text-align: center;
+                        border-radius: 14px;
+                        font-size: 18px;
+                    }
+
+                    #resea:hover {
+                        background-color: #FFD700;
+                    }
+
+                    #sub {
+                        background-color: darkmagenta;
+                        font-family: 'Courier New', monospace;
+                        font-weight: bold;
+                        width: 180px;
+                        height: 60px;
+                        text-align: center;
+                        border-radius: 20px;
+                        font-size: 20px;
+                        color: white;
+                    }
+
+                    #sub:hover {
+                        background-color: #cf1804;
+                    }
+
+                    #first {
+                        border-radius: 14px;
+                        height: 25px;
+                        font-size: 20px;
+                        text-align: center;
+                    }
+
+                    #second {
+                        border-radius: 14px;
+                        height: 25px;
+                        font-size: 20px;
+                        text-align: center;
+                    }
+
+                    #third {
+                        border-radius: 14px;
+                        height: 25px;
+                        font-size: 20px;
+                        text-align: center;
+                    }
+
+                    #fourth {
+                        border-radius: 14px;
+                        height: 25px;
+                        font-size: 20px;
+                        text-align: center;
+                    }
+
+                </style>
+</body>
+
+</html>
